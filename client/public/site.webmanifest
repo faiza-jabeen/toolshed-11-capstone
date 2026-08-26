@@ -1,0 +1,9 @@
+{
+  "name": "Kirkgate Toolshed",
+  "short_name": "Toolshed",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4F6F3",
+  "theme_color": "#14332A",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}

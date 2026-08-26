@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- SEO essentials -->
+    <title>Kirkgate Toolshed — borrow tools instead of buying them</title>
+    <meta name="description" content="Every tool the Kirkgate Toolshed lends: what is on the shelf today, what is out on loan, and what is in for repair. A neighbourhood tool library in Leeds LS2." />
+    <link rel="canonical" href="https://toolshed.example/" />
+    <meta name="theme-color" content="#14332A" />
+    <meta name="color-scheme" content="light dark" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Kirkgate Toolshed — the catalogue" />
+    <meta property="og:description" content="412 tools, 240 member households, £25 a year. See what is on the shelf today." />
+    <meta property="og:url" content="https://toolshed.example/" />
+    <meta property="og:image" content="https://toolshed.example/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!--
+      Fonts were the single biggest Lighthouse complaint: a stylesheet from a
+      third origin blocks first paint until it round-trips. Two fixes:
+        1. preconnect, so DNS + TLS to fonts.gstatic.com happen in parallel
+        2. load the stylesheet with media="print" and flip it on load, so it is
+           fetched at a lower priority and never blocks rendering
+      &display=swap means text paints in the fallback face immediately.
+      The <noscript> copy keeps the fonts for the tiny minority without JS.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;600&family=Public+Sans:wght@400;600&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;600&family=Public+Sans:wght@400;600&display=swap" />
+    </noscript>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Kirkgate Toolshed",
+        "description": "A volunteer-run neighbourhood tool library lending 412 tools to 240 member households.",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Unit 4, The Old Bus Depot, Kirkgate",
+          "addressLocality": "Leeds",
+          "postalCode": "LS2 7DJ",
+          "addressCountry": "GB"
+        },
+        "openingHours": ["Tu 17:00-20:00", "Th 17:00-20:00", "Sa 09:30-16:00"]
+      }
+    </script>
+
+    <!--
+      Dark mode has to be applied BEFORE React mounts, or every dark-mode user
+      gets a white flash on each load. This is the one inline script on the
+      page, and it is deliberately tiny and synchronous.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('toolshed-theme');
+          var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.dataset.theme = theme;
+          if (theme === 'dark') {
+            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0C1A15');
+          }
+        } catch (e) { document.documentElement.dataset.theme = 'light'; }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding:2rem;font-family:system-ui">
+        The Kirkgate Toolshed catalogue needs JavaScript. The shed is at Unit 4,
+        The Old Bus Depot, Kirkgate, Leeds LS2 7DJ, open Tuesday and Thursday
+        17:00–20:00 and Saturday 09:30–16:00.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

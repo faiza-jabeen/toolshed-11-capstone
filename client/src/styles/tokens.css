@@ -1,0 +1,93 @@
+/* ============================================================
+   Toolshed design system — tokens
+   Palette pulled from the shed itself: painted pine door,
+   galvanized steel, hazard tape, chalked inventory board.
+   ============================================================ */
+:root {
+  /* colour */
+  --paint:      #14332A;  /* shed door green, deep */
+  --paint-2:    #1E4C3E;  /* hover / raised surfaces */
+  --paint-3:    #2C6B57;  /* borders on dark */
+  --tape:       #F5B915;  /* hazard tape yellow — the one loud thing */
+  --tape-ink:   #3A2A00;  /* text that sits on tape */
+  --zinc:       #8B9793;  /* galvanized steel */
+  --zinc-2:     #C3CBC7;  /* hairlines */
+  --chalk:      #F4F6F3;  /* page, cool off-white (not cream) */
+  --chalk-2:    #E7EBE6;  /* sunken surfaces */
+  --ink:        #0D1A15;  /* body text */
+  --ink-2:      #47554F;  /* secondary text */
+  --flag:       #B4472C;  /* "out on loan" marker */
+  --grow:       #2F7D4F;  /* "on the shelf" marker */
+
+  /* type */
+  --display: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:    "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --mono:    "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --step--1: clamp(0.78rem, 0.76rem + 0.10vw, 0.84rem);
+  --step-0:  clamp(0.98rem, 0.94rem + 0.18vw, 1.08rem);
+  --step-1:  clamp(1.18rem, 1.08rem + 0.45vw, 1.42rem);
+  --step-2:  clamp(1.45rem, 1.25rem + 0.95vw, 2.05rem);
+  --step-3:  clamp(1.85rem, 1.40rem + 2.10vw, 3.10rem);
+  --step-4:  clamp(2.30rem, 1.50rem + 3.80vw, 4.60rem);
+
+  /* space — 4px base, named so the scale is obvious in markup */
+  --s-1: 0.25rem; --s-2: 0.5rem;  --s-3: 0.75rem; --s-4: 1rem;
+  --s-5: 1.5rem;  --s-6: 2rem;    --s-7: 3rem;    --s-8: 4rem;
+  --s-9: 6rem;
+
+  /* structure */
+  --measure: 62ch;
+  --shell: 76rem;
+  --radius: 3px;          /* hardware, not marshmallow */
+  --radius-lg: 6px;
+  --rule: 1px solid var(--zinc-2);
+  --rule-dark: 1px solid var(--paint-3);
+  --lift: 0 1px 0 rgba(13,26,21,.06), 0 8px 24px -12px rgba(13,26,21,.35);
+  --focus: 3px solid var(--tape);
+
+  --ease: cubic-bezier(0.2,0.7,0.3,1);
+}
+
+/* ============================================================
+   Stretch goal 2 — dark mode.
+   Only the palette is redeclared; every spacing, type and radius
+   token is shared, so the two themes cannot drift apart.
+   Not a straight inversion: the shed at night is warm lamplight
+   on dark timber, so the surfaces stay slightly green-brown
+   rather than going neutral grey.
+   ============================================================ */
+[data-theme="dark"] {
+  --paint:      #0C1A15;
+  --paint-2:    #163027;
+  --paint-3:    #244839;
+  --tape:       #F0BC33;
+  --tape-ink:   #1E1502;
+  --zinc:       #7C8A85;
+  --zinc-2:     #33423C;
+  --chalk:      #101916;
+  --chalk-2:    #17231F;
+  --ink:        #E4EAE6;
+  --ink-2:      #A3B0AA;
+  --flag:       #E0705A;
+  --grow:       #56B37C;
+
+  --rule: 1px solid #253430;
+  --rule-dark: 1px solid #2E4038;
+  --lift: 0 1px 0 rgba(0,0,0,.4), 0 10px 28px -14px rgba(0,0,0,.75);
+
+  color-scheme: dark;
+}
+
+/* Panels are white in light mode; in dark they need a real surface colour. */
+[data-theme="dark"] .panel,
+[data-theme="dark"] .card,
+[data-theme="dark"] .tag,
+[data-theme="dark"] .stat,
+[data-theme="dark"] .input,
+[data-theme="dark"] .select,
+[data-theme="dark"] .textarea { background: var(--chalk-2); }
+
+[data-theme="dark"] .input,
+[data-theme="dark"] .select,
+[data-theme="dark"] .textarea { border-color: var(--zinc-2); color: var(--ink); }
