@@ -1,4 +1,7 @@
-﻿# Kirkgate Toolshed
+**Live:** https://faiza-toolshed.netlify.app
+
+**Demo logins:** keeper `ada@toolshed.test` · member `sam@toolshed.test` — both `shed-ladder-9912`
+ # Kirkgate Toolshed
 
 **Capstone â€” Neurofive Solutions Full Stack Web Development internship.**
 
