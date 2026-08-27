@@ -1,49 +1,33 @@
-# Render blueprint: one API service with a persistent disk, one static site.
+﻿# Render blueprint, free tier.
+#
+# The free plan has no persistent disk, so the SQLite file is rebuilt on every
+# deploy and after the service sleeps. The API re-seeds itself on an empty
+# boot, so the demo always works, but accounts made through the UI do not
+# survive a redeploy.
+#
+# To keep real data: set plan to "starter", add a disk, point DATABASE_PATH at
+# the mount, and set AUTO_SEED=0.
 services:
   - type: web
     name: toolshed-api
     runtime: node
     rootDir: server
-    plan: starter
-    buildCommand: npm ci
+    plan: free
+    buildCommand: npm install
     startCommand: npm start
     healthCheckPath: /api/health
-    # SQLite on an ephemeral filesystem loses every row on redeploy.
-    # The disk is not optional.
-    disk:
-      name: toolshed-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: NODE_ENV
         value: production
       - key: DATABASE_PATH
-        value: /var/data/toolshed.db
+        value: ./data/toolshed.db
       - key: ACCESS_TOKEN_SECRET
         generateValue: true
       - key: REFRESH_TOKEN_SECRET
         generateValue: true
       - key: CORS_ORIGIN
-        sync: false          # set to the deployed client origin
+        sync: false
       - key: ACCESS_TOKEN_TTL
         value: 15m
       - key: REFRESH_TOKEN_TTL_DAYS
-        value: 7
-
-  - type: web
-    name: toolshed-client
-    runtime: static
-    rootDir: client
-    buildCommand: npm ci && npm run build
-    staticPublishPath: ./dist
-    envVars:
-      - key: VITE_API_URL
-        sync: false          # set to the deployed API origin
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    headers:
-      - path: /assets/*
-        name: Cache-Control
-        value: public, max-age=31536000, immutable
+        value: "7"

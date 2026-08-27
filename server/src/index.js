@@ -1,4 +1,4 @@
-import express from 'express';
+﻿import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
@@ -52,6 +52,16 @@ export function createApp() {
 const isEntrypoint = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
 if (isEntrypoint) {
   const port = Number(process.env.PORT || 4000);
+  // Free hosting tiers have an ephemeral filesystem: the container is rebuilt
+  // on every deploy, so the database can come back empty. Seeding on an empty
+  // boot keeps the demo logins working. Set AUTO_SEED=0 once there is a disk.
+  if (process.env.AUTO_SEED !== '0') {
+    const { db } = await import('./db.js');
+    if (db.prepare('SELECT COUNT(*) c FROM tools').get().c === 0) {
+      console.log('Database is empty - seeding demo data.');
+      await import('./seed.js');
+    }
+  }
   const server = createApp().listen(port, () => console.log(`toolshed-api on :${port}`));
 
   /**
@@ -61,7 +71,7 @@ if (isEntrypoint) {
    */
   for (const signal of ['SIGTERM', 'SIGINT']) {
     process.on(signal, () => {
-      console.log(`${signal} received — finishing in-flight requests`);
+      console.log(`${signal} received â€” finishing in-flight requests`);
       server.close(async () => {
         const { db } = await import('./db.js');
         db.pragma('wal_checkpoint(TRUNCATE)');
