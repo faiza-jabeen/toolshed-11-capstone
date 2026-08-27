@@ -30,6 +30,10 @@
       &display=swap means text paints in the fallback face immediately.
       The <noscript> copy keeps the fonts for the tiny minority without JS.
     -->
+    <!-- The first thing the app does is call the API on another origin. Without
+         this, DNS + TLS to it only start after the JS bundle has parsed. -->
+    <link rel="preconnect" href="https://toolshed-api.onrender.com" crossorigin />
+    <link rel="dns-prefetch" href="https://toolshed-api.onrender.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

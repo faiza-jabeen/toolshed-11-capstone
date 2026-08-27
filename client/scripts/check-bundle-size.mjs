@@ -17,7 +17,10 @@ const BUDGETS = [
   { match: /^react-.*\.js$/,       kb: 70,  critical: true,  why: 'react + react-dom' },
   { match: /^state-.*\.js$/,       kb: 5,   critical: true,  why: 'zustand' },
   { match: /^vendor-.*\.js$/,      kb: 135, critical: false, why: 'recharts — lazy, keeper-only' },
-  { match: /^DashboardCharts-.*\.js$/, kb: 10, critical: false, why: 'chart components — lazy' },
+  { match: /^DashboardCharts-.*\.js$/, kb: 10, critical: false, why: 'chart components - lazy' },
+  // Per-route chunks. Deliberately off the critical path: each downloads only
+  // when its route is visited, which is the whole point of splitting them out.
+  { match: /^(ToolDetail|MyLoans|Desk|Dashboard|SignIn|loanStore)-.*\.js$/, kb: 8, critical: false, why: 'route chunk - lazy' },
 ];
 
 const CRITICAL_PATH_KB = 100;   // what a first-time visitor to the catalogue downloads

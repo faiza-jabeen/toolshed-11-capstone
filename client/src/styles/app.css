@@ -155,7 +155,11 @@
 .toast__msg { font-size: var(--step--1); flex: 1; }
 .toast__x { background: none; border: 0; color: inherit; cursor: pointer; opacity: .7; font-size: .8rem; }
 
-.colophon { background: var(--ink); color: var(--zinc); padding-block: var(--s-6); margin-top: var(--s-8); }
-[data-theme="dark"] .colophon { background: #080F0D; }
-.colophon__mark { font-family: var(--display); font-weight: 800; font-size: var(--step-1); color: var(--chalk); }
+/* The footer is dark in BOTH themes, so it cannot use --ink and --chalk:
+   those two tokens swap meaning between light and dark, which left the
+   wordmark at a 1.08:1 contrast ratio in dark mode - effectively invisible.
+   Fixed values here, because this surface does not follow the theme. */
+.colophon { background: #0D1A15; color: #8B9793; padding-block: var(--s-6); margin-top: var(--s-8); }
+[data-theme="dark"] .colophon { background: #080F0D; color: #97A29D; }
+.colophon__mark { font-family: var(--display); font-weight: 800; font-size: var(--step-1); color: #F4F6F3; }
 .colophon__body { max-width: 48ch; font-size: var(--step--1); margin-top: var(--s-2); }
